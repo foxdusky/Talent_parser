@@ -12,9 +12,6 @@ def read_in_db():
     db_data = client.databases.retrieve(database_id=NOTION_DATABASE_ID)
     print(type(db_data))
     print(db_data)
-    with open("data_info.json", "w") as f:
-        pass
-    pass
 
 
 def authorization() -> Client:
@@ -36,13 +33,14 @@ def write_in_db(talent: Talent):
                             "type": "text",
                             "text": {"content": str(talent.telegram_id)}
                         }
-                    ]},
+                    ]
+                },
                 "Telegram Username": {
                     "type": "rich_text",
                     "rich_text": [
                         {
-                            "type": "rich_text",
-                            "text": talent.username
+                            "type": "text",
+                            "text": {"content": talent.username}
                         }
                     ]
                 },
@@ -50,23 +48,11 @@ def write_in_db(talent: Talent):
                     "type": "rich_text",
                     "rich_text": [
                         {
-                            "type": "rich_text",
-                            "text": talent.talent_description
+                            "type": "text",
+                            "text": {"content": talent.talent_description}
                         }
                     ]
-                },
-                # "User Talent Description": {"type": "text", "text": talent.talent_description},
+                }
             }
         }
     )
-
-
-if __name__ == "__main__":
-    # print(get_pages(authorization()))
-    tal = Talent(
-        telegram_id=123523532,
-        username="Fox",
-        talent_description="Люблю суши"
-    )
-    write_in_db(tal)
-    # read_in_db()
